@@ -1,0 +1,77 @@
+version: "3.1"
+
+services:
+
+  data_warehouse:
+    image: postgres:12.0
+    restart: always
+    container_name: data_warehouse_service
+    environment:
+      POSTGRES_USER: gamma
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: data_warehouse
+    ports:
+      - 5432:5432  # expose the database on port 5432
+    networks:
+      - local
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - data_warehouse
+    ports:
+      - 5050:5050
+    environment:
+      PGADMIN_DEFAULT_EMAIL: gamma@bcg.com
+      PGADMIN_DEFAULT_PASSWORD: example
+      PGADMIN_LISTEN_PORT: 5050
+    networks:
+      - local
+    volumes:
+      - pgdamin_data:/var/lib/pgadmin
+
+  model:
+    build: .
+    volumes:
+      - .:/code
+    depends_on:
+      - data_warehouse
+    networks:
+      - local
+
+  app:
+    build: app
+    ports:
+      - 5000:5000
+    volumes:
+      - ./app:/app
+    networks:
+      - app
+
+  sphinx:
+    image: ddidier/sphinx-doc:1.8.5-5
+    environment:
+      USER_ID: 1000
+    volumes:
+      - ./doc:/doc
+      - ./src:/doc/src
+      - ./configs:/doc/configs
+      - ./README.md:/doc/source/getting_start/README.md
+      - ./EXERCISES.md:/doc/source/exercises/EXERCISES.md
+    ports:
+      - 8000:8000
+    command: bash -c "python -m pip install --upgrade --user pip && python -m pip install --user pandas && python -m pip install --user PyYAML && python -m pip install --user sqlalchemy &&
+      python -m pip install --user matplotlib && python -m pip install --user python-box && python -m pip install --user schema && make livehtml"
+
+networks:
+  local:
+    driver: bridge
+  app:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  pgdamin_data:

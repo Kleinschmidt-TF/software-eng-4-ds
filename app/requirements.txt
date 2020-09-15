@@ -1,0 +1,6 @@
+contextlib2==0.5.5
+Flask==1.0.2
+gunicorn==19.9.0
+PyYAML==5.1
+Jinja2==2.10.1
+Werkzeug==0.15.3

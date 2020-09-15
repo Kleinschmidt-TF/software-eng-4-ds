@@ -1,0 +1,18 @@
+########################################################################################
+# This corresponds to the infrastructure configuration file.
+# It contains every parameters used to set up infrastructure.
+#
+# This file is the most updated configuration file and can be used as a default one.
+########################################################################################
+
+data_warehouse:
+  connect: True
+
+# Database connection information
+db:
+  # Host name (server containing database)
+  host: data_warehouse_service
+  port: 5432
+  user: gamma
+  password: example
+  database: data_warehouse

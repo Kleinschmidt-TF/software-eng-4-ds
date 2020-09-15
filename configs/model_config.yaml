@@ -1,0 +1,112 @@
+########################################################################################
+# This corresponds to the main configuration file. It contains every default
+# parameters used in the pipeline.
+#
+# This file is the most updated configuration file and can be used as a default one.
+########################################################################################
+
+
+# Run information
+run_info:
+
+  # Date of the run (should be before the last day with data observed)
+  information_horizon: 2019-05-30
+
+  # Run mode: "backtest" to evaluate prediction or "live" to predict on new data
+  run_mode: backtest
+
+
+# Run parameters
+run_param:
+
+  # Seed used to reproduce results with random operations
+  random_seed: 42
+
+  # Parameters for cross_validation
+  use_cross_validation: True
+  nb_folds: 5
+
+
+# Parameters for demand forecast module
+demand_forecast:
+
+  # Machine Learning model parameters
+  model:
+    name: random_forest #random_forest, extra_tree, xgboost
+    params:
+      # random_forest : n_estimators, max_depth, min_samples_split, min_samples_leaf, max_features, ... (see sklearn.ensemble.RandomForestRegressor)
+      # etra_tree :  n_estimators, max_depth, min_samples_split, min_samples_leaf, max_features, ... (sklearn.ensemble.ExtraTreeRegressor)
+      # xgboost : eta, gamma, max_depth, max_delta_step, lambda, alpha, max_leaves, ... (xgboost.XGBoostRegressor)
+      n_estimators: 200
+      random_state: 42
+
+  # Features used for the model, data_name: column
+  # gross_price,color,...
+  features:
+    products: [gross_price, color]
+
+  range_week_sales: 8  # number of week to retrieve sales before information horizon
+
+  # NaN strategy : 'strict' does not allow NaN
+  nan_strategy: strict
+
+  # Granularity : items are list of granularity implemented, value is the granularity for the run
+  # if value is None, this granularity won't be in the final data frame index
+  granularity:
+    products:
+      items:
+        - product_id
+      value: product_id
+    location:
+      items:
+        - store_id
+        - country
+      value:
+    time:
+      items:
+        - week
+        - day
+      value: week
+
+  target: nb_sold_pieces
+
+  # Parameters for training scope
+  training_context:
+
+    # Store id in scope (no value passed means every stores)
+    location:
+      granularity: store_id
+      value:
+
+    # Product id in scope (no value passed means every products)
+    products:
+      granularity: product_id
+      value:
+
+    # Number of weeks before information horizon to use for training
+    time:
+      granularity: date
+      time_range: 14
+
+    # Minimum sales value per product to be accepted in training set (on whole period)
+    min_sales: 50
+
+  # Parameters for prediction scope
+  prediction_context:
+
+    # Store id in scope (no value passed means every stores)
+    location:
+      granularity: store_id
+      value:
+        - 1
+        - 2
+        - 3
+    # Product id in scope (no value passed means every products)
+    products:
+      granularity: product_id
+      value:
+
+    # Number of weeks to predict on after information horizon
+    time:
+      granularity: date
+      time_range: 14

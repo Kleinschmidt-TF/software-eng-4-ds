@@ -1,0 +1,59 @@
+demand_forecast:
+  features:
+    products:
+    - gross_price
+    - color
+  granularity:
+    location:
+      items:
+      - store_id
+      - country
+      value: null
+    products:
+      items:
+      - product_id
+      value: product_id
+    time:
+      items:
+      - week
+      - day
+      value: week
+  model:
+    name: random_forest
+    params:
+      n_estimators: 200
+      random_state: 42
+  nan_strategy: strict
+  prediction_context:
+    location:
+      granularity: store_id
+      value:
+      - 1
+      - 2
+      - 3
+    products:
+      granularity: product_id
+      value: null
+    time:
+      granularity: date
+      time_range: 14
+  range_week_sales: 8
+  target: nb_sold_pieces
+  training_context:
+    location:
+      granularity: store_id
+      value: null
+    min_sales: 50
+    products:
+      granularity: product_id
+      value: null
+    time:
+      granularity: date
+      time_range: 14
+run_info:
+  information_horizon: 2019-05-30
+  run_mode: backtest
+run_param:
+  nb_folds: 5
+  random_seed: 42
+  use_cross_validation: true

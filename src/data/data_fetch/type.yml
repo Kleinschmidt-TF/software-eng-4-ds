@@ -1,0 +1,23 @@
+########################################################################################
+# This file corresponds to the types of the raw data and allows to check the type with
+# the decorator check type
+########################################################################################
+
+products:
+  product_id: int
+  product_name: object
+  gross_price: float
+  color: object
+  supplier: object
+
+stores:
+  store_id: int
+  city: object
+  surface_area: int
+
+transactions:
+  product_id: int
+  store_id: int
+  date: datetime64[ns]
+  nb_sold_pieces: int
+

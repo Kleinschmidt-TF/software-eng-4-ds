@@ -1,0 +1,48 @@
+version: "3.1"
+
+services:
+
+  data_warehouse:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: gamma
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: data_warehouse
+    ports:
+      - "5432:5432"
+    networks:
+      - local
+
+  unit-tests:
+    build: .
+    tty: true
+    volumes:
+      - ../:/demand_forecast
+    networks:
+      - local
+    command: "python -m pytest ./test/unit_tests"
+
+  integration-tests:
+    build: .
+    tty: true
+    volumes:
+      - ../:/demand_forecast
+    networks:
+      - local
+    command: "python -m pytest ./test/integration_tests"
+
+  e2e-test:
+    build: .
+    depends_on:
+      - data_warehouse
+    tty: true
+    volumes:
+      - ../:/demand_forecast
+    networks:
+      - local
+    command: "python run_test.py"
+
+networks:
+  local:
+    driver: bridge

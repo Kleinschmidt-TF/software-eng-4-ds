@@ -1,0 +1,13 @@
+_end_date: '2019-05-30'
+_information_horizon: '2019-02-21'
+_is_backtest: false
+_is_training: true
+_location: null
+_location_granularity: store_id
+_name: training_context
+_products: null
+_products_granularity: product_id
+_start_date: '2018-12-28'
+location_value: null
+products_value: null
+time_granularity: date

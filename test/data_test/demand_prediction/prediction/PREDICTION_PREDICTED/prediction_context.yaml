@@ -1,0 +1,16 @@
+_end_date: '2019-09-05'
+_information_horizon: '2019-05-30'
+_is_backtest: true
+_is_training: false
+_location: (1,2,3)
+_location_granularity: store_id
+_name: prediction_context
+_products: null
+_products_granularity: product_id
+_start_date: '2019-04-05'
+location_value:
+  - 1
+  - 2
+  - 3
+products_value: null
+time_granularity: date

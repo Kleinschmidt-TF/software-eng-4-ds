@@ -1,0 +1,101 @@
+product_id,product_name,gross_price,color,supplier
+1,Vodka - Smirnoff,13.68,Purple,
+2,Crackers - Graham,94.6,Green,Doe
+3,Foil - Round Foil,20.63,Teal,Doe
+4,Cookies - Assorted,71.18,Yellow,Super
+5,Ginger - Pickled,14.65,Puce,Doe
+6,Shortbread - Cookie Crumbs,15.45,Teal,Doe
+7,Cranberries - Dry,68.39,Blue,Doe
+8,Knife Plastic - White,57.56,Mauv,Super
+9,"Garlic - Primerba, Paste",21.17,Teal,John
+10,Ecolab - Medallion,37.85,Blue,Doe
+11,Bay Leaf Fresh,18.86,Khaki,Doe
+12,"Salmon - Atlantic, No Skin",34.7,Crimson,Super
+13,Pastry - Choclate Baked,10.1,Green,Doe
+14,"Veal - Chops, Split, Frenched",39.74,Puce,John
+15,"Tortillas - Flour, 8",60.36,Red,Doe
+16,Thyme - Dried,84.03,Teal,Doe
+17,Wine - Chablis J Moreau Et Fils,45.12,Aquamarine,Doe
+18,Wine - Lou Black Shiraz,9.3,Mauv,Super
+19,"7up Diet, 355 Ml",3.75,Puce,Super
+20,Halibut - Fletches,49.28,Maroon,John
+21,Squeeze Bottle,21.62,Yellow,Super
+22,Kiwi,53.97,Violet,John
+23,Ginger - Pickled,2.76,Green,
+24,Isomalt,40.29,Mauv,
+25,Longos - Chicken Caeser Salad,58.12,Teal,John
+26,Plastic Arrow Stir Stick,38.68,Turquoise,Doe
+27,"Tart Shells - Savory, 3",31.34,Turquoise,John
+28,Anchovy In Oil,13.92,Indigo,John
+29,Wine - Niagara Peninsula Vqa,42.17,Orange,
+30,"Pork - Butt, Boneless",18.4,Orange,Doe
+31,Gloves - Goldtouch Disposable,29.41,Turquoise,Super
+32,Carbonated Water - White Grape,30.07,Red,Super
+33,Duck - Fat,34.86,Aquamarine,John
+34,Bread - Rosemary Focaccia,28.86,Mauv,
+35,Pork Loin Cutlets,1.85,Red,
+36,Ecolab - Hobart Upr Prewash Arm,61.42,Khaki,
+37,"Roe - Lump Fish, Black",23.58,Khaki,John
+38,Tofu - Firm,62.08,Turquoise,Super
+39,Compound - Pear,34.4,Purple,John
+40,"Yogurt - Banana, 175 Gr",93.57,Goldenrod,Super
+41,Pork Loin Cutlets,64.2,Mauv,Super
+42,Ecolab - Hobart Washarm End Cap,24.81,Orange,Doe
+43,Juice - Propel Sport,70.73,Blue,John
+44,Chips Potato All Dressed - 43g,84.52,Blue,John
+45,"Basil - Primerba, Paste",6.27,Crimson,John
+46,"Chicken - Leg, Boneless",19.32,Puce,Super
+47,Island Oasis - Raspberry,19.18,Green,Doe
+48,"Asparagus - White, Fresh",84.73,Mauv,John
+49,Wine - Alsace Gewurztraminer,69.5,Green,Super
+50,"Soup - Campbells, Classic Chix",38.21,Teal,John
+51,Cleaner - Comet,11.81,Crimson,Super
+52,"Soup - Campbells, Minestrone",3.28,Fuscia,John
+53,"Juice - Orange, Concentrate",1.02,Crimson,John
+54,Hipnotiq Liquor,42.42,Green,John
+55,"Chilli Paste, Sambal Oelek",42.56,Teal,Doe
+56,Ginger - Pickled,74.74,Mauv,Doe
+57,Wine - Clavet Saint Emilion,70.3,Violet,John
+58,Pie Shell - 5,49.08,Teal,Doe
+59,Coffee - Espresso,70.1,Teal,Super
+60,French Pastry - Mini Chocolate,61.16,Maroon,
+61,Dasheen,69.65,Crimson,Doe
+62,The Pop Shoppe - Root Beer,60.9,Mauv,John
+63,"Pork - Bacon, Sliced",59.7,Aquamarine,John
+64,Paper - Brown Paper Mini Cups,96.9,Yellow,John
+65,Galliano,29.04,Aquamarine,Doe
+66,"Chicken - Diced, Cooked",56.22,Aquamarine,
+67,Kaffir Lime Leaves,14.99,Yellow,Doe
+68,Sproutsmustard Cress,12.92,Green,John
+69,Glass Clear 7 Oz Xl,89.55,Mauv,John
+70,"Red Snapper - Fillet, Skin On",68.21,Red,John
+71,Beer - Paulaner Hefeweisse,18.13,Aquamarine,
+72,Appetizer - Chicken Satay,53.96,Pink,John
+73,Lidsoupcont Rp12dn,84.75,Red,Doe
+74,Burger Veggie,79.01,Purple,
+75,Mix - Cocktail Ice Cream,44.79,Turquoise,Super
+76,Lettuce - Sea / Sea Asparagus,38.96,Aquamarine,Doe
+77,Pork - Smoked Kassler,48.12,Turquoise,
+78,Sole - Iqf,87.51,Crimson,Super
+79,Ginger - Pickled,80.2,Crimson,John
+80,Wine - Baron De Rothschild,94.14,Puce,Super
+81,"Potatoes - Yukon Gold, 80 Ct",90.0,Orange,Super
+82,Truffle Cups - Red,27.71,Maroon,
+83,Bagelers,80.94,Turquoise,Doe
+84,Oil - Olive,10.54,Yellow,Super
+85,Parsley - Dried,50.73,Khaki,Doe
+86,Steel Wool,48.03,Maroon,
+87,Glycerine,50.28,Goldenrod,Super
+88,Dried Apple,48.58,Yellow,Super
+89,Beer - Paulaner Hefeweisse,5.61,Teal,Doe
+90,Smoked Tongue,13.29,Indigo,Super
+91,"Cherries - Maraschino,jar",78.64,Goldenrod,Doe
+92,Island Oasis - Sweet And Sour Mix,66.02,Goldenrod,Super
+93,Bread - Hot Dog Buns,17.21,Pink,Super
+94,"Extract - Vanilla,artificial",48.02,Green,John
+95,Sugar - Crumb,91.03,Blue,John
+96,Pork - Shoulder,17.99,Violet,Super
+97,"Beef - Rib Roast, Cap On",76.08,Blue,Doe
+98,Fruit Salad Deluxe,41.13,Aquamarine,
+99,Coriander - Seed,2.11,Teal,Doe
+100,"Sauce - Gravy, Au Jus, Mix",80.82,Fuscia,John

@@ -1,0 +1,54 @@
+version: 2.0
+jobs:
+    build:
+        working_directory: ~/demand_forecast
+        docker:
+            - image: circleci/python:3.6
+        steps:
+            - checkout
+            - setup_remote_docker
+            - run:
+                name: Install dependencies
+                command: |
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip3 install pytest
+                    pip3 install -r requirements.txt
+            - run:
+                name: Run unit tests
+                command: |
+                    . venv/bin/activate
+                    export PYTHONPATH=src/
+                    python3 -m pytest test/unit_tests
+            - run:
+                name: Run integration tests
+                command: |
+                    . venv/bin/activate
+                    export PYTHONPATH=src/
+                    python3 -m pytest test/integration_tests
+            # - run:  ## fails because we need the data_warehouse worker
+            #     name: Run end to end test
+            #     command: |
+            #         . venv/bin/activate
+            #         export PYTHONPATH=src/
+            #         python3 run_test.py
+            ## all commands below fail; test modules are not found
+            # - run:
+            #     name: Build docker images
+            #     command: |
+            #         docker-compose -f test/docker-compose.test.yaml build
+            # - run:
+            #     name: Unit tests
+            #     command: |
+            #         docker-compose -f test/docker-compose.test.yaml up --force-recreate --exit-code-from unit-tests unit-tests
+            #         docker-compose -f test/docker-compose.test.yaml down --remove-orphans
+            # - run:
+            #     name: Integration tests
+            #     command: |
+            #         docker-compose -f test/docker-compose.test.yaml up --force-recreate --exit-code-from integration-tests integration-tests
+            #         docker-compose -f test/docker-compose.test.yaml down --remove-orphans
+            # - run:
+            #     name: E2E test
+            #     command: |
+            #         docker-compose -f test/docker-compose.test.yaml up --force-recreate --exit-code-from e2e-test e2e-test
+            #         docker-compose -f test/docker-compose.test.yaml down --remove-orphans
