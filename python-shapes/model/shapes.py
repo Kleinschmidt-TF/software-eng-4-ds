@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from render import cube as cube_render
+import math
 
 class Shape(metaclass=ABCMeta):
     def __init__(self, name):
@@ -57,6 +58,7 @@ class Square(Shape2D):
     def name(self, side:int):
         self._side = side
 
+
 class Rectangle(Shape2D):
     def __init__(self, length: int,width: int):
         self.name = "Rectangle"
@@ -76,6 +78,29 @@ class Rectangle(Shape2D):
     @side.setter
     def name(self, side:int):
         self._side = side
+
+
+class Circle(Shape2D):
+    def __init__(self, radius: int):
+        self.name = "Circle"
+        self._radius = radius
+
+    @property
+    def radius(self):
+        return self._radius
+
+    @radius.setter
+    def name(self, radius: int):
+        self._radius = radius
+
+    def perimeter(self):
+        """Return the perimeter of this Circle instance"""
+        return 2 * self._radius * math.pi
+
+    def area(self):
+        """Return the area of this Circle instance"""
+        return math.pi * self._radius ** 2
+
 
 class Polygon(Shape2D):
     def __init__(self, nsegment):
@@ -100,7 +125,7 @@ class Cube(Shape3D):
         return self._side * self._side * self._side
 
     def area(self)->int:
-        return self._side*self._side*4
+        return self._side*self._side*6
 
     @property
     def side(self):
