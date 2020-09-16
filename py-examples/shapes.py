@@ -3,103 +3,161 @@ import math
 
 
 class Shape():
-    def __init__(self):
-        self.__name = "Shape"
+    def __init__(self, _name="Shape"):
+        self.set_name(_name)
 
     def perimeter(self):
-        return "I am an undefined shape"
+        """Define common interface for all Shapes"""
+        pass
 
     def surface(self):
-        return "I am an undefined shape"
+        """Define common interface for all Shapes"""
+        pass
 
-    def whatAmI(self):
-        print("I am a", self.__name)
+    def set_name(self, _name):
+        """Setter for the instance variable name"""
+        self._name = _name
 
-
+    def get_name(self):
+        """Getter for instance variable name"""
+        return self._name
 
 
 class Rectangle(Shape):
-    def __init__(self, sides):
-        self.__name = "Rectangle"
-        self.__sides = sides
+    def __init__(self, _name="Rectangle", _sides=[]):
+        """Initializer"""
+        self.set_name(_name)
+        self.set_sides(_sides)
 
-    def whatAmI(self):
-        print("I am a", self.__name)
+    def set_sides(self, _sides):
+        """Setter for instance variable sides"""
+        if len(_sides) != 2:
+            raise ValueError("Please specify only 2 sides (L+W)")
+        self._sides = _sides
 
     def perimeter(self):
-        return sum(self.__sides) * 2
+        return sum(self._sides) * 2
 
     def surface(self):
-        return self.__side[0] * self.__side[1]
+        return self._side[0] * self._side[1]
 
 
 class Square(Rectangle):
-    def __init__(self, side):
-        self.__name = "Square"
-        self.__side = side
+    def __init__(self, _name="Square", _side=1.0):
+        self.set_name(_name)
+        self.set_side(_side)
 
-    def whatAmI(self):
-        print("I am a", self.__name)
+    def set_side(self, _side):
+        """Setter for instance variable side"""
+        self._side = _side
 
     def perimeter(self):
-        return 4 * self.__side
+        return 4 * self._side
 
     def surface(self):
-        return self.__side ** 2
+        return self._side ** 2
 
 
 class Circle(Shape):
-    def __init__(self, radius):
-        self.__name = "Circle"
-        self.__radius = radius
+    def __init__(self, _name="Circle", _radius=1.0):
+        """Initializer with default radius"""
+        self.set_name(_name)
+        self.set_radius(_radius)
 
-    def whatAmI(self):
-        print("I am a", self.__name)
+    def set_radius(self, _radius):
+        """Setter for instance variable radius"""
+        if _radius < 0:
+            raise ValueError('Radius cannot be negative')
+        self._radius = _radius
+
+    def get_radius(self):
+        """Getter for instance variable radius"""
+        return self._radius
+
+    # A method which can be accessed via str() or print()
+    def __str__(self):
+        return f"This is a Circle with a radius of {self._radius}"
 
     def perimeter(self):
-        return 2 * self.__radius * math.pi
+        """Return the perimeter of this Circle instance"""
+        return 2 * self._radius * math.pi
 
     def surface(self):
-        return math.pi * self.__radius ** 2
+        """Return the area of this Circle instance"""
+        return math.pi * self._radius ** 2
 
 
 class Polygon(Shape):
-    def __init__(self, edges):
-        self.__name = "Polygon"
-        self.__edges = edges
+    def __init__(self, _name="Polygon", _edges=[]):
+        self.set_name(_name)
+        self.set_edges(_edges)
 
-    def whatAmI(self):
-        print("I am a", self.__name)
+    def set_edges(self, _edges):
+        """Setter for the instance variable edges"""
+        if len(_edges) < 3:
+            raise ValueError("Polygon must have at least 3 sides!")
+        self._edges = _edges
+
+    def get_edges(self):
+        """Getter for the instance variable edges"""
+        return self._edges
+
+    # A method which can be accessed via str() or print()
+    def __str__(self):
+        return f"This is a Polygon with edges: {self._edges}"
 
     def perimeter(self):
-        return sum(self.__edges)
+        return sum(self._edges)
 
     def surface(self):
         return "I don't know :("
 
 
 class Triangle(Shape):
-    def __init__(self, sides):
-        self.__name = "Triangle"
-        self.__radius = sides
+    def __init__(self, _name="Triangle", _sides=[]):
+        self.set_name(_name)
+        self.set_sides(_sides)
 
-    def whatAmI(self):
-        print("I am a", self.__name)
+    def set_sides(self, _sides):
+        """Setter for the instance variable sides"""
+        if len(_sides) != 3:
+            raise ValueError("Triangle must have exactly 3 sides!")
+        self._sides = _sides
+
+    def get_sides(self):
+        """Getter for the instance variable sides"""
+        return self._sides
+
+    # A method which can be accessed via str() or print()
+    def __str__(self):
+        return f"This is a Triangle with sides: {self._sides}"
 
     def perimeter(self):
-        return sum(self.__sides)
+        return sum(self._sides)
 
     def surface(self):
         return "I don't know :("
 
 
 # TODO: implement a main function
-t = Triangle(8)
-t.whatAmI()
+t = Triangle(_sides=[8, 6, 4])
+print(t)
 print(f"My perimeter: {t.perimeter()}")
 print(f"My surface area: {t.surface()}")
 
-p = Polygon([3, 5, 3, 6])
-p.whatAmI()
+p = Polygon(_edges=[3, 5, 3, 6])
+print(p)
 print(f"My perimeter: {p.perimeter()}")
 print(f"My surface area: {p.surface()}")
+
+c = Circle(2.5)
+print(c)
+
+# Example: confirming class type/inheritance
+# check the types of the developed classes
+print(f"Triangle is Shape: {isinstance(t, Shape)}")
+print(f"Triangle is Triangle: {isinstance(t, Triangle)}")
+
+# N.B. these checks look at the Classes, not the instances!
+print(f"Triangle is subclass of Shape: {issubclass(Triangle, Shape)}")
+print(f"Shape is subclass of Triangle: {issubclass(Shape, Triangle)}")
