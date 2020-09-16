@@ -6,6 +6,15 @@ class Shape():
     def __init__(self, _name="Shape"):
         self.set_name(_name)
 
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """Setter for the instance variable name"""
+        self._name = name
+
     def perimeter(self):
         """Define common interface for all Shapes"""
         pass
@@ -14,19 +23,12 @@ class Shape():
         """Define common interface for all Shapes"""
         pass
 
-    def set_name(self, _name):
-        """Setter for the instance variable name"""
-        self._name = _name
-
-    def get_name(self):
-        """Getter for instance variable name"""
-        return self._name
 
 
 class Rectangle(Shape):
     def __init__(self, _name="Rectangle", _sides=[]):
         """Initializer"""
-        self.set_name(_name)
+        self.name = _name
         self.set_sides(_sides)
 
     def set_sides(self, _sides):
@@ -44,7 +46,7 @@ class Rectangle(Shape):
 
 class Square(Rectangle):
     def __init__(self, _name="Square", _side=1.0):
-        self.set_name(_name)
+        self.name = _name
         self.set_side(_side)
 
     def set_side(self, _side):
@@ -61,18 +63,20 @@ class Square(Rectangle):
 class Circle(Shape):
     def __init__(self, _name="Circle", _radius=1.0):
         """Initializer with default radius"""
-        self.set_name(_name)
-        self.set_radius(_radius)
+        self.name = _name
+        self.radius = _radius
 
-    def set_radius(self, _radius):
-        """Setter for instance variable radius"""
-        if _radius < 0:
-            raise ValueError('Radius cannot be negative')
-        self._radius = _radius
-
-    def get_radius(self):
+    @property
+    def radius(self):
         """Getter for instance variable radius"""
         return self._radius
+
+    @radius.setter
+    def radius(self, radius):
+        """Setter for instance variable radius"""
+        if radius < 0:
+            raise ValueError('Radius cannot be negative')
+        self._radius = radius
 
     # A method which can be accessed via str() or print()
     def __str__(self):
@@ -89,7 +93,7 @@ class Circle(Shape):
 
 class Polygon(Shape):
     def __init__(self, _name="Polygon", _edges=[]):
-        self.set_name(_name)
+        self.name = _name
         self.set_edges(_edges)
 
     def set_edges(self, _edges):
@@ -115,7 +119,7 @@ class Polygon(Shape):
 
 class Triangle(Shape):
     def __init__(self, _name="Triangle", _sides=[]):
-        self.set_name(_name)
+        self.name = _name
         self.set_sides(_sides)
 
     def set_sides(self, _sides):
@@ -150,7 +154,7 @@ print(p)
 print(f"My perimeter: {p.perimeter()}")
 print(f"My surface area: {p.surface()}")
 
-c = Circle(2.5)
+c = Circle(_radius=2.5)
 print(c)
 
 # Example: confirming class type/inheritance
