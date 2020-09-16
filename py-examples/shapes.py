@@ -26,22 +26,37 @@ class Shape():
 
 
 class Rectangle(Shape):
-    def __init__(self, _name="Rectangle", _sides=[]):
+    def __init__(self, _name="Rectangle", _length=1.0, _width=1.0):
         """Initializer"""
         self.name = _name
-        self.set_sides(_sides)
+        self.length = _length
+        self.width(_width)
 
-    def set_sides(self, _sides):
-        """Setter for instance variable sides"""
-        if len(_sides) != 2:
-            raise ValueError("Please specify only 2 sides (L+W)")
-        self._sides = _sides
+    @property
+    def length(self, length):
+        if length < 0:
+            raise ValueError("Length of Rectangle must be non-negative")
+        self._length = length
+
+    @length.setter
+    def length(self):
+        return self._length
+
+    @property
+    def width(self, width):
+        if width < 0:
+            raise ValueError("Length of Rectangle must be non-negative")
+        self._width = width
+
+    @width.setter
+    def width(self):
+        return self._width
 
     def perimeter(self):
-        return sum(self._sides) * 2
+        return (self.length + self.width) * 2
 
     def surface(self):
-        return self._side[0] * self._side[1]
+        return self.length * self.width
 
 
 class Square(Rectangle):
