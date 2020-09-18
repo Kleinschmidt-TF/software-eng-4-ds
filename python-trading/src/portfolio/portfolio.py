@@ -180,6 +180,8 @@ class Portfolio():
 
         self._balance += investment
 
+        logger.info(f"Invested funds: {investment}. New balance = {self._balance}")
+
     def placeOrder(self, order: Order):
         """Place a trade, and update portfolio
 
