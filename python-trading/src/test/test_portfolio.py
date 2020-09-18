@@ -1,8 +1,20 @@
-from portfolio import Asset, Order, Direction, Portfolio
+from portfolio import Asset, Direction, Order, Portfolio
+from portfolio import InsufficientFundsException, AssetNotPresentException
+
 import pytest
 
 
-def test_asset():
+def create_test_portfolio() -> Portfolio:
+    """Initialize a test portfolio"""
+    return Portfolio(name="Dedicated portfolio", balance=100)
+
+
+def create_test_asset() -> Asset:
+    """Initialize a default test asset"""
+    return Asset(name="IBM", price=25.0)
+
+
+def test_asset_class():
     """Test initialization and attribute assignment of assets"""
 
     # bare minimum constructor
@@ -26,10 +38,10 @@ def test_asset_exceptions():
 
 
 
-def test_order():
+def test_order_class():
     """Test initialization of the order class"""
     # create asset object (tested elsewhere)
-    a = Asset(name="IBM", price=25.0)
+    a = create_test_asset()
 
     assert Order(asset=a, direction=Direction.BUY, qty=2).asset.name == "IBM", \
         "Asset name should be IBM"
@@ -46,7 +58,7 @@ def test_order():
 
 def test_order_exceptions():
     """Test the exceptions associated with the Order class"""
-    a = Asset(name="IBM", price=25.0)
+    a = create_test_asset()
 
     with pytest.raises(ValueError):
         Order(asset=None, direction=Direction.BUY, qty=2)
@@ -63,7 +75,7 @@ def test_order_interfaces(capsys):
     N.B. This can be captured using the capsys fixture.  Refer to
     https://docs.pytest.org/en/stable/capture.html for more details"""
 
-    a = Asset(name="IBM", price=25.0)
+    a = create_test_asset()
 
     print(Order(asset=a, direction=Direction.BUY, qty=2))
     captured = capsys.readouterr()
@@ -72,7 +84,7 @@ def test_order_interfaces(capsys):
 
 def test_portfolio():
     """Functions to test normal portfolio operations"""
-    a = Asset(name="IBM", price=25.0)
+    a = create_test_asset()
     o_buy = Order(asset=a, direction=Direction.BUY, qty=1)
     o_sell = Order(asset=a, direction=Direction.SELL, qty=1)
 
@@ -107,35 +119,42 @@ def test_portfolio_exceptions():
     """Functions to test portfolio exceptions"""
 
     # test initialization
-    p = Portfolio(name="Dedicated portfolio", balance=100)
+    p = create_test_portfolio()
     with pytest.raises(ValueError):
         Portfolio(name="", balance=100)
         Portfolio(name="My portfolio", balance=0)
         Portfolio(name="My portfolio", balance=-100)
         p.invest(-100)
 
+    # check order type error
+    with pytest.raises(TypeError):
+        p.placeOrder(order=None)
+
+
+def test_custom_exceptions():
+    """Test custom exception classes"""
+
     # test the handling of the overall portfolio
-    p = Portfolio(name="Dedicated portfolio", balance=100)
-    a1 = Asset(name="IBM", price=25.0)
+    p = create_test_portfolio()
+    a1 = create_test_asset()
     o_buy1 = Order(asset=a1, direction=Direction.BUY, qty=5)
     o_sell1 = Order(asset=a1, direction=Direction.SELL, qty=1)
 
     # p1 has some existing stocks of a different asset
     p1 = Portfolio(name="Mixed portfolio", balance=100)
     p1.placeOrder(Order(asset=a1, direction=Direction.BUY, qty=1))
+
+    # additional asset for mixed-asset portfolio
     a2 = Asset(name="AAPL", price=20.0)
     o_buy2 = Order(asset=a2, direction=Direction.BUY, qty=4)
     o_sell2 = Order(asset=a2, direction=Direction.SELL, qty=1)
 
-    with pytest.raises(RuntimeError):
+    with pytest.raises(AssetNotPresentException):
         # nothing to sell!
         p.placeOrder(o_sell1)
         p1.placeOrder(o_sell2)
 
+    with pytest.raises(InsufficientFundsException):
         # insufficient funds
         p.placeOrder(o_buy1)
         p1.placeOrder(o_buy2)
-
-    # check order type error
-    with pytest.raises(TypeError):
-        p.placeOrder(order=None)

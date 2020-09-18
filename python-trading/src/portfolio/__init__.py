@@ -1,1 +1,3 @@
-from portfolio.portfolio import Asset, Order, Direction, Portfolio
+from portfolio.portfolio import (Asset, Order, Direction, Portfolio,
+                                 InsufficientFundsException, AssetNotPresentException
+)

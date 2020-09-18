@@ -191,8 +191,7 @@ class Portfolio():
         if order.direction == Direction.BUY:
             # check if you can buy this many stocks
             if self.balance < order.value():
-                raise RuntimeError(f"Insufficient funds to buy. Balance: {np.round(self.balance,2)}, "
-                                   f"${order.value()} required")
+                raise InsufficientFundsException(self, order)
 
             self.buy(order.asset, order.quantity)
         elif order.direction == Direction.SELL:
@@ -203,8 +202,33 @@ class Portfolio():
                     portfolio_qty += 1
 
             if portfolio_qty < order.quantity:
-                raise RuntimeError("Insufficient stocks to sell this quantity")
+                raise AssetNotPresentException(self, order.asset)
 
             self.sell(order.asset, order.quantity)
 
         logging.info(f"New balance: {self.balance}")
+
+
+class InsufficientFundsException(Exception):
+    """Exceptions for handling buying"""
+    def __init__(self, p: Portfolio, o: Order):
+        self._portfolio = p
+        self._order = o
+        self._message = "Insufficient funds.\n"
+        self._message += f"Portfolio: {p.name}, balance: {p.balance}\n"
+        self._message += f"Order: {o.asset.name}, qty: {o.quantity}, value: {o.value()}"
+
+        super().__init__(self._message)
+
+
+class AssetNotPresentException(Exception):
+    """Exception for handling selling"""
+    def __init__(self, p: Portfolio, a: Asset):
+        self._asset = a
+        self._portfolio = p
+
+        self._message = "Asset not present to sell.\n"
+        self._message += f"Portfolio: {p.name}.\n"
+        self._message += f"Asset: {a.name}"
+
+        super().__init__(self._message)
