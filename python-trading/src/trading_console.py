@@ -38,6 +38,7 @@ def run():
 
     # initialize the portfolio
     p = prtf.Portfolio(name="My Portfolio", balance=init_balance)
+    print("Press [X] at any stage to exit trading console.")
 
     # loop until all trading decisions are finalized
     for idx, row in df.iterrows():
@@ -54,7 +55,7 @@ def run():
             logger.error("Unknown action, exiting trading console.")
             raise RuntimeError("Unknown action, exiting trading console. ", action)
         elif action == 'X':
-            logger.error("Exiting console.")
+            logger.info("Exiting console.")
             return
         else:
             logger.info(f"Choice made to {action} on {this_asset.name}")
