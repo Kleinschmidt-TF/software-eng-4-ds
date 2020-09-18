@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Python</ID>
+  <OriginalElement>#/Users/saxen/Documents/GitHub/python-repository/domain</OriginalElement>
+  <nodes>
+    <node x="420.0" y="306.0">domain.models.User.User</node>
+    <node x="48.0" y="204.0">repository.BaseAdaptor.BaseAdaptor</node>
+    <node x="4.0" y="408.0">domain.services.UserRepository.UserRepository</node>
+    <node x="0.0" y="306.0">repository.SqlAlchemyAdaptor.SqlAlchemyAdaptor</node>
+    <node x="288.0" y="0.0">typing.Hashable</node>
+    <node x="496.0" y="204.0">Base</node>
+    <node x="324.0" y="102.0">object</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="object" target="typing.Hashable">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="repository.BaseAdaptor.BaseAdaptor" target="object">
+      <point x="0.0" y="-26.0" />
+      <point x="200.0" y="179.0" />
+      <point x="344.0" y="179.0" />
+      <point x="-20.0" y="26.0" />
+    </edge>
+    <edge source="repository.SqlAlchemyAdaptor.SqlAlchemyAdaptor" target="repository.BaseAdaptor.BaseAdaptor">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="domain.services.UserRepository.UserRepository" target="repository.SqlAlchemyAdaptor.SqlAlchemyAdaptor">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="domain.models.User.User" target="Base">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="Base" target="object">
+      <point x="0.0" y="-26.0" />
+      <point x="528.0" y="179.0" />
+      <point x="384.0" y="179.0" />
+      <point x="20.0" y="26.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.739593505859375" x="317.99999999999994" y="229.99999999999994" />
+  <SelectedNodes />
+  <Categories />
+</Diagram>
+

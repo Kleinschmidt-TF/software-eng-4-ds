@@ -1,0 +1,2 @@
+SQLAlchemy==1.2.8
+pysqlite==3 0.4.3
