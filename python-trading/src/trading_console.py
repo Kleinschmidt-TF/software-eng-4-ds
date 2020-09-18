@@ -2,19 +2,18 @@ import pandas as pd
 import logging
 import portfolio as prtf
 
-# TODO: move to config
-stocks = ["IBM", "AAPL", "AMZN", "GOOG", "MSFT"]
-init_balance = 1000
+# lazy import of the configuration
+from config.config import stocks, init_balance
 
 # set up logging
 # N.B. writing to a trading log, not the console
+# Notes: format = Time YYYY-MM-DD HH-MM-SS :: module :: loglevel :: message
 logging.basicConfig(level=logging.DEBUG,
                     filename='trading.log',
-                    format='%(asctime)s :: %(levelname)s :: %(message)s')
+                    format='%(asctime)s :: %(name)s :: %(levelname)s :: %(message)s')
 
 
 def run():
-    # TODO: convert to multi-stock option
     dfs = []
     for ticker in stocks:
         # read in the stocks to a DF, add to list
@@ -44,25 +43,46 @@ def run():
         action = str.upper(input("[B]uy, [S]ell, or [Pass]? ")).strip('[]')
 
         if action not in ['B', 'P', 'S', 'X']:
-            raise RuntimeError("Unknown action: ", action)
+            logging.error("Unknown action, exiting trading console.")
+            raise RuntimeError("Unknown action, exiting trading console. ", action)
         elif action == 'X':
+            logging.error("Exiting console.")
             return
         else:
-            logging.info(f"Choice is to {action} on {this_asset.name}")
+            logging.info(f"Choice made to {action} on {this_asset.name}")
 
             # attempt buy/sell
             if action == 'B':
-                # TODO: implement the exception so you can ask user to add funds
-                p.placeOrder(prtf.Order(asset=this_asset, direction=prtf.Direction.BUY, qty=1))
-
                 logging.info(f"Buy order placed: ({this_asset.name} x {1})")
-
                 if this_asset.name == "AAPL":
-                    logging.info(f"You made a bad decision to buy AAPL stock!")
+                    logging.critical(f"You made a bad decision to buy AAPL stock!")
+
+                # place order, and catch exception if insufficient balance
+                try:
+                    p.placeOrder(prtf.Order(asset=this_asset, direction=prtf.Direction.BUY, qty=1))
+                except prtf.InsufficientFundsException:
+                    logging.warning("Insufficient funds to purchase stock.")
+
+                    # ask if additional balance is to be invested
+                    add_balance = str.upper(input("Insufficient funds. Add balance (Y/N)?"))
+                    if add_balance == 'Y':
+                        topup = float(input("How much balance to add?"))
+                        p.invest(topup)
+                        logging.info(f"Additional funds invested to portfolio: {topup}.")
+
+                        try:
+                            p.placeOrder(prtf.Order(asset=this_asset, direction=prtf.Direction.BUY, qty=1))
+                        except prtf.InsufficientFundsException:
+                            logging.warning("Still insufficient funds to purchase stock. Abandoning this order.")
 
             elif action == 'S':
-                p.placeOrder(prtf.Order(asset=this_asset, direction=prtf.Direction.SELL, qty=1))
                 logging.info(f"Sell order placed: ({this_asset.name} x {1})")
+
+                # try to place the order
+                try:
+                    p.placeOrder(prtf.Order(asset=this_asset, direction=prtf.Direction.SELL, qty=1))
+                except prtf.AssetNotPresentException:
+                    logging.warning("Do not have sufficient stock of this asset. Order cancelled.")
 
 
 if __name__ == "__main__":

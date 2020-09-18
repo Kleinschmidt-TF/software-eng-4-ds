@@ -1,6 +1,8 @@
 import enum
 import logging
-import numpy as np
+
+# give the local logger this module name so that it can be identified
+logger = logging.getLogger(__name__)
 
 
 class Direction(enum.Enum):
@@ -185,7 +187,7 @@ class Portfolio():
         if not isinstance(order, Order):
             raise TypeError(f"order must be an Order instance, not {type(order)}")
 
-        logging.info(f"Current balance: {self.balance}")
+        logger.info(f"Current balance: {self.balance}")
 
         # make the trade
         if order.direction == Direction.BUY:
@@ -206,7 +208,7 @@ class Portfolio():
 
             self.sell(order.asset, order.quantity)
 
-        logging.info(f"New balance: {self.balance}")
+        logger.info(f"New balance: {self.balance}")
 
 
 class InsufficientFundsException(Exception):
